@@ -13,6 +13,7 @@ var canvas= document.getElementById('canva');
         laxty=event.offsetY
     });
     canvas.addEventListener('touchstart',(event)=>{
+        event.preventDefault();
         isDrawing=true;
         laxtx=event.offsetX
         laxty=event.offsetY
@@ -41,6 +42,7 @@ var canvas= document.getElementById('canva');
         }
     });
     canvas.addEventListener('touchmove',(event)=>{
+        event.preventDefault();
         if (isDrawing) {
             saveState();
             ctx.beginPath();
