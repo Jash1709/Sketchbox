@@ -12,6 +12,11 @@ var canvas= document.getElementById('canva');
         laxtx=event.offsetX
         laxty=event.offsetY
     });
+    canvas.addEventListener('touchstart',(event)=>{
+        isDrawing=true;
+        laxtx=event.offsetX
+        laxty=event.offsetY
+    });
     color.addEventListener('change',()=>{
         var selectedcolor=color.value;
         ctx.strokeStyle=selectedcolor;
@@ -24,6 +29,18 @@ var canvas= document.getElementById('canva');
         ctx.lineWidth=thickness.value;
     })
     canvas.addEventListener('mousemove',(event)=>{
+        if (isDrawing) {
+            saveState();
+            ctx.beginPath();
+            ctx.moveTo(laxtx,laxty)
+            ctx.lineTo(event.offsetX,event.offsetY)
+            ctx.stroke();
+            
+            laxtx=event.offsetX
+            laxty=event.offsetY
+        }
+    });
+    canvas.addEventListener('touchmove',(event)=>{
         if (isDrawing) {
             saveState();
             ctx.beginPath();
