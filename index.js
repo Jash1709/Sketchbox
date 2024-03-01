@@ -7,17 +7,35 @@ var canvas= document.getElementById('canva');
     var thickness = document.getElementById('thickness');
     var isDrawing;
     var canvasStates = [];
+    canvas.addEventListener('touchstart', handleTouchStart, false);
+    canvas.addEventListener('touchmove', handleTouchMove, false);
+    function handleTouchStart(event) {
+            event.preventDefault();
+            var touch = event.touches[0];
+            var rect = canvas.getBoundingClientRect();
+            var x = touch.clientX - rect.left;
+            var y = touch.clientY - rect.top;
+            saveState();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+
+        // Function to handle touch move
+        function handleTouchMove(event) {
+            event.preventDefault();
+            var touch = event.touches[0];
+            var rect = canvas.getBoundingClientRect();
+            var x = touch.clientX - rect.left;
+            var y = touch.clientY - rect.top;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
     canvas.addEventListener('mousedown',(event)=>{
         isDrawing=true;
         laxtx=event.offsetX
         laxty=event.offsetY
     });
-    canvas.addEventListener('touchstart',(event)=>{
-        event.preventDefault();
-        isDrawing=true;
-        laxtx=event.offsetX
-        laxty=event.offsetY
-    });
+   
     color.addEventListener('change',()=>{
         var selectedcolor=color.value;
         ctx.strokeStyle=selectedcolor;
@@ -41,19 +59,7 @@ var canvas= document.getElementById('canva');
             laxty=event.offsetY
         }
     });
-    canvas.addEventListener('touchmove',(event)=>{
-        event.preventDefault();
-        if (isDrawing) {
-            saveState();
-            ctx.beginPath();
-            ctx.moveTo(laxtx,laxty)
-            ctx.lineTo(event.offsetX,event.offsetY)
-            ctx.stroke();
-            
-            laxtx=event.offsetX
-            laxty=event.offsetY
-        }
-    });
+   
     canvas.addEventListener('mouseup',(event)=>{
         isDrawing=false
     });
