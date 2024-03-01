@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SketchBox</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <h1>SketchBox</h1>
+    <h4>Your Personal Digital Canvas</h4>
+    <div class="main">
+    <div class="option-container">
+        <div class="option">
+            <p>text color</p>
+            <input type="color" id="colorpicker">
+        </div>
+        <div class="option">
+            <p>background color</p>
+            <input type="color" id="bgpicker">
+        </div>
+        <div class="option">
+            <p>thickness</p>
+            <select id="thickness">
+                <option value="2">2px</option>
+                <option value="4">4px</option>
+                <option value="6">6px</option>
+                <option value="8">8px</option>
+                <option value="10">10px</option>
+                <option value="12">12px</option>
+                <option value="15">15px</option> 
+                <option value="18">18px</option>
+            </select>
+        </div>
+        
+    </div>
+        <div class="canvas-container">
+        <canvas id="canva" width="900px" height="500px"></canvas>
+
+        <div class="bottom">
+            <button style="background-color: #337357; color: white;" onclick="undo()">Undo</button>
+            <button style="background-color: #FFD23F;" id="clear">clear</button>    
+            <button style="background-color: #EE4266; color: white;" id="save">save & download</button>
+            
+       </div>
+    </div>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
