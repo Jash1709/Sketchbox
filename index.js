@@ -9,6 +9,7 @@ var canvas= document.getElementById('canva');
     var canvasStates = [];
 
     canvas.addEventListener('touchstart', (event) => {
+    event.preventDefault();
     isDrawing = true;
     var rect = canvas.getBoundingClientRect();
     lastX = event.touches[0].clientX - rect.left;
@@ -16,6 +17,7 @@ var canvas= document.getElementById('canva');
 });
 
 canvas.addEventListener('touchmove', (event) => {
+    event.preventDefault();
     if (isDrawing) {
         var rect = canvas.getBoundingClientRect();
         var currentX = event.touches[0].clientX - rect.left;
