@@ -7,29 +7,37 @@ var canvas= document.getElementById('canva');
     var thickness = document.getElementById('thickness');
     var isDrawing;
     var canvasStates = [];
-    canvas.addEventListener('touchstart', handleTouchStart, false);
-    canvas.addEventListener('touchmove', handleTouchMove, false);
-    function handleTouchStart(event) {
-            event.preventDefault();
-            var touch = event.touches[0];
-            var rect = canvas.getBoundingClientRect();
-            var x = touch.clientX - rect.left;
-            var y = touch.clientY - rect.top;
-            saveState();
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-        }
 
-        // Function to handle touch move
-        function handleTouchMove(event) {
-            event.preventDefault();
-            var touch = event.touches[0];
-            var rect = canvas.getBoundingClientRect();
-            var x = touch.clientX - rect.left;
-            var y = touch.clientY - rect.top;
-            ctx.lineTo(x, y);
-            ctx.stroke();
-        }
+    canvas.addEventListener('touchstart', (event) => {
+    isDrawing = true;
+    var rect = canvas.getBoundingClientRect();
+    lastX = event.touches[0].clientX - rect.left;
+    lastY = event.touches[0].clientY - rect.top;
+});
+
+canvas.addEventListener('touchmove', (event) => {
+    if (isDrawing) {
+        var rect = canvas.getBoundingClientRect();
+        var currentX = event.touches[0].clientX - rect.left;
+        var currentY = event.touches[0].clientY - rect.top;
+
+        saveState();
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+
+        lastX = currentX;
+        lastY = currentY;
+    }
+});
+
+canvas.addEventListener('touchend', () => {
+    isDrawing = false;
+});
+   
+
+        
     canvas.addEventListener('mousedown',(event)=>{
         isDrawing=true;
         laxtx=event.offsetX
